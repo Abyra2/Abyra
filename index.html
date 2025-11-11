@@ -1,1 +1,239 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abyra</title>
+  <style>
+    :root {
+      --dark-bg: #0b0c10;
+      --dark-blue: #1f2833;
+      --text-color: #c5c6c7;
+      --accent-color: #45aaf2;
+    }
 
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--dark-blue);
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    header h1 img {
+      height: 50px;
+    }
+
+    header h1 span {
+      color: #1f3b6d;
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    .section {
+      padding: 50px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    /* قسم البحث */
+    #search-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    #search-bar input[type="text"] {
+      padding: 10px 15px;
+      width: 60%;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+
+    /* النقاط الثلاث وتصنيفات */
+    .dropdown {
+      position: fixed;
+      top: 60px;
+      left: 10px;
+      z-index: 1000;
+    }
+
+    .dropbtn {
+      font-size: 20px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      cursor: pointer;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: fixed;
+      top: 100px;
+      left: 10px;
+      background-color: rgba(0,0,0,0.95);
+      color: white;
+      width: 200px;
+      height: 60vh;
+      overflow-y: auto;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+      border-radius: 10px;
+      padding: 20px;
+      z-index: 2000;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: white;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .dropdown-content a:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    .discord-button {
+      display: inline-block;
+      background-color: #7289da;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .discord-button:hover {
+      background-color: #5b6eae;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: var(--dark-blue);
+      color: var(--text-color);
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>
+      <img src="https://cdn.discordapp.com/attachments/1437911824485060740/1437921499569721465/04a1e451b8d680deecea33929864948b-removebg-preview.png" alt="Abyra Logo">
+      <span>Abyra</span>
+    </h1>
+    <nav>
+      <a href="#manhwa">المانهوات</a>
+      <a href="#comic">الكوميكس</a>
+    </nav>
+  </header>
+
+  <!-- قسم البحث -->
+  <div id="search-bar">
+    <input type="text" placeholder="البحث">
+  </div>
+
+  <!-- النقاط الثلاث والتصنيفات -->
+  <div class="dropdown">
+    <button onclick="toggleDropdown()" class="dropbtn">⋮ التصنيف</button>
+    <div id="dropdown" class="dropdown-content">
+      <a href="#">رومانسي</a>
+      <a href="#">أكشن</a>
+      <a href="#">كوميدي</a>
+      <a href="#">خيال</a>
+      <a href="#">دراما</a>
+      <a href="#">إعادة إحياء</a>
+      <a href="#">زمكاني</a>
+      <a href="#">مدرسي</a>
+      <a href="#">رياضة</a>
+      <a href="#">سفر ومغامرة</a>
+      <a href="#">خارق للطبيعة</a>
+      <a href="#">غموض</a>
+      <a href="#">تاريخي</a>
+      <a href="#">حياة يومية</a>
+      <a href="#">سياسي</a>
+      <a href="#">عسكري</a>
+      <a href="#">موسيقى</a>
+      <a href="#">خيال علمي</a>
+      <a href="#">إثارة</a>
+      <a href="#">حيوان</a>
+      <a href="#">مغامرات</a>
+      <a href="#">عائلي</a>
+      <a href="#">رعب</a>
+      <a href="#">مذهبي</a>
+    </div>
+  </div>
+
+  <!-- قسم المانهوات -->
+  <section id="manhwa" class="section">
+    <h2>المانهوات</h2>
+    <p>سيتم إضافة المانهوات لاحقًا</p>
+  </section>
+
+  <!-- قسم الكوميكس -->
+  <section id="comic" class="section">
+    <h2>الكوميكس</h2>
+    <p>سيتم إضافة الكوميكس لاحقًا</p>
+  </section>
+
+  <!-- قسم الديسكورد -->
+  <section id="discord" class="section" style="background:none; color:white;">
+    <h2>للمترجمين</h2>
+    <p>إذا ودكم تدخلون السيرفر وتساهمون بالترجمة، اضغطوا الرابط أدناه:</p>
+    <a class="discord-button" href="https://discord.gg/S76J2edAY" target="_blank">انضم للسيرفر</a>
+    <div style="text-align:center; margin: 20px 0;">
+      <a href="https://discord.gg/S76J2edAY" target="_blank">
+        <img src="https://cdn.discordapp.com/attachments/1437911824485060740/1437919465089138788/76772f21d911fbaeda3d81d0b45c2ca3-removebg-preview.png" 
+             alt="Discord" 
+             style="width:100px; cursor:pointer;">
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Abyra</p>
+  </footer>
+
+  <script>
+    function toggleDropdown() {
+      var dropdown = document.getElementById("dropdown");
+      if(dropdown.style.display === "none" || dropdown.style.display === ""){
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+                          </html>
