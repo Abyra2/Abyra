@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abyra</title>
+<style>
+:root {
+  --dark-bg: #0b0c10;
+  --dark-blue: #1f2833;
+  --text-color: #c5c6c7;
+  --accent-color: #45aaf2;
+}
+
+body {
+  margin:0;
+  font-family: 'Arial', sans-serif;
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  position:relative;
+}
+
+header {
+  background-color: var(--dark-blue);
+  padding:20px;
+  text-align:center;
+}
+
+header h1 {
+  margin:0;
+  font-size:3em;
+  font-weight:bold;
+  color: var(--accent-color);
+  text-shadow: 0 0 10px #1f3b6d, 0 0 20px #1f3b6d;
+}
+
+/* زر البحث */
+#search-btn {
+  position:fixed;
+  top:10px;
+  right:10px;
+  background-color:transparent;
+  border:none;
+  color:white;
+  font-size:24px;
+  cursor:pointer;
+  z-index:20;
+}
+
+#search-box {
+  display:none;
+  position:fixed;
+  top:50px;
+  right:10px;
+  width:250px;
+  background-color:#111;
+  padding:5px 10px;
+  border-radius:5px;
+  box-shadow:0 0 10px #000;
+  z-index:20;
+}
+
+#search-box input {
+  width:100%;
+  padding:5px;
+  border:none;
+  border-radius:3px;
+  background-color:#222;
+  color:white;
+}
+
+/* زر التصنيف */
+#menu-btn {
+  position:fixed;
+  top:10px;
+  left:10px;
+  font-size:28px;
+  cursor:pointer;
+  z-index:20;
+  color:white;
+}
+
+#dropdown {
+  display:none;
+  position:fixed;
+  top:50px;
+  left:10px;
+  width:220px;
+  max-height:80vh;
+  overflow-y:auto;
+  background-color: rgba(0,0,0,0.95);
+  padding:10px;
+  border-radius:8px;
+  box-shadow:0 0 10px #000;
+  z-index:20;
+}
+
+#dropdown a {
+  display:block;
+  padding:8px;
+  text-decoration:none;
+  color:white;
+  font-size:16px;
+}
+
+#dropdown a:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* قسم المانهوات */
+.section {
+  padding:100px 20px 50px 20px;
+  text-align:center;
+}
+
+.discord-button {
+  display:inline-block;
+  background-color:#7289da;
+  color:white;
+  padding:15px 25px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+  margin-top:20px;
+}
+
+.discord-button:hover {
+  background-color:#5b6eae;
+}
+
+footer {
+  text-align:center;
+  padding:20px;
+  background-color:var(--dark-blue);
+  color:var(--text-color);
+  margin-top:50px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Abyra</h1>
+</header>
+
+<!-- زر البحث -->
+<button id="search-btn" onclick="toggleSearch()">🔍</button>
+<div id="search-box">
+<input type="text" placeholder="ابحث هنا...">
+</div>
+
+<!-- زر التصنيف -->
+<div id="menu-btn" onclick="toggleDropdown()">☰</div>
+<div id="dropdown">
+<a href="#" onclick="goCategory('رومانسي',5)">رومانسي</a>
+<a href="#" onclick="goCategory('أكشن',8)">أكشن</a>
+<a href="#" onclick="goCategory('كوميدي',6)">كوميدي</a>
+<a href="#" onclick="goCategory('خيال',7)">خيال</a>
+<a href="#" onclick="goCategory('دراما',4)">دراما</a>
+<a href="#" onclick="goCategory('إعادة إحياء',3)">إعادة إحياء</a>
+<a href="#" onclick="goCategory('زمكاني',2)">زمكاني</a>
+<a href="#" onclick="goCategory('مدرسي',5)">مدرسي</a>
+<a href="#" onclick="goCategory('تاريخي',4)">تاريخي</a>
+<a href="#" onclick="goCategory('حرب',3)">حرب</a>
+<a href="#" onclick="goCategory('رياضي',2)">رياضي</a>
+<a href="#" onclick="goCategory('خارق للطبيعة',6)">خارق للطبيعة</a>
+<a href="#" onclick="goCategory('تشويق',5)">تشويق</a>
+<a href="#" onclick="goCategory('مغامرات',4)">مغامرات</a>
+<a href="#" onclick="goCategory('بوليسي',3)">بوليسي</a>
+<a href="#" onclick="goCategory('ميكا',2)">ميكا</a>
+<a href="#" onclick="goCategory('سحر',4)">سحر</a>
+<a href="#" onclick="goCategory('غموض',3)">غموض</a>
+<a href="#" onclick="goCategory('خيال علمي',5)">خيال علمي</a>
+<a href="#" onclick="goCategory('حياة يومية',6)">حياة يومية</a>
+</div>
+
+<!-- قسم المانهوات -->
+<section id="manhwa" class="section">
+<h2 id="category-title">المانهوات</h2>
+<p id="category-count"></p>
+<p>سيتم إضافة المانهوات لاحقًا</p>
+</section>
+
+<!-- قسم الكوميكس -->
+<section id="comic" class="section">
+<h2>الكوميكس</h2>
+<p>سيتم إضافة الكوميكس لاحقًا</p>
+</section>
+
+<!-- قسم الديسكورد -->
+<section id="discord" class="section">
+<h2>للمترجمين</h2>
+<p>إذا ودكم تدخلون السيرفر وتساهمون بالترجمة:</p>
+<a class="discord-button" href="https://discord.gg/S76J2edAY" target="_blank">انضم للسيرفر</a>
+</section>
+
+<footer>
+<p>© 2025 Abyra</p>
+</footer>
+
+<script>
+function toggleSearch() {
+  const box = document.getElementById('search-box');
+  box.style.display = (box.style.display==='block')?'none':'block';
+}
+
+function toggleDropdown() {
+  const dropdown = document.getElementById('dropdown');
+  dropdown.style.display = (dropdown.style.display==='block')?'none':'block';
+}
+
+function goCategory(name,count) {
+  document.getElementById("category-title").textContent = name;
+  document.getElementById("category-count").textContent = "عدد المانجا: " + count;
+  document.getElementById("manhwa").scrollIntoView({behavior:"smooth"});
+  toggleDropdown();
+}
+</script>
+
+</body>
+</html>
