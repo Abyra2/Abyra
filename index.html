@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abyra</title>
+<style>
+:root {
+  --dark-bg: #0b0c10;
+  --text-color: #c5c6c7;
+  --accent-color: #1f3b6d;
+  --discord-color: #7b3fff;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Arial', sans-serif;
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* اسم الموقع أعلى شيء في الوسط */
+.site-name {
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+  color: var(--accent-color);
+  margin: 10px 0 5px 0;
+}
+
+/* الهيدر */
+header {
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #111;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* زر القائمة */
+.category-btn {
+  font-size: 30px;
+  cursor: pointer;
+  color: var(--text-color);
+  user-select: none;
+}
+
+/* زر البحث باليسار */
+.search-container {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* صندوق البحث */
+.search-box {
+  display: none;
+  position: absolute;
+  top: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000;
+  color: var(--text-color);
+  padding: 10px;
+  border-radius: 5px;
+  width: 90%;
+  max-width: 300px;
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+.search-box input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  background-color: #111;
+  color: var(--text-color);
+}
+
+/* main content */
+main {
+  flex: 1;
+  padding-top: 60px; /* ارتفاع الهيدر */
+}
+
+/* قائمة التصنيفات */
+.category-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  height: 100%;
+  width: 70%;
+  max-width: 400px;
+  background-color: rgba(17,17,17,0.95);
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: -2px 0 15px #000;
+  z-index: 1001;
+  overflow-y: auto;
+  transition: right 0.3s ease;
+  display: flex;
+}
+
+.category-menu.open {
+  right: 0;
+}
+
+.category-menu h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+.category-menu a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin: 10px 0;
+  font-size: 1.2em;
+  transition: color 0.3s;
+}
+
+.category-menu a:hover {
+  color: var(--accent-color);
+}
+
+.close-menu {
+  cursor: pointer;
+  font-size: 20px;
+  margin-bottom: 20px;
+  user-select: none;
+}
+
+/* الأقسام */
+section {
+  padding: 40px 20px;
+  text-align: center;
+  min-height: 50vh;
+}
+
+section h2 {
+  margin-bottom: 20px;
+}
+
+/* المانهوات */
+.manhwa-item {
+  margin: 10px 0;
+}
+
+/* ديسكورد */
+.discord-btn {
+  display: inline-block;
+  background-color: var(--discord-color);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.discord-btn:hover {
+  background-color: #5a2ed1;
+}
+
+.top-stats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.top-stats div {
+  background-color: rgba(255,255,255,0.1);
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+
+/* الفوتر */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #111;
+  color: var(--text-color);
+  margin-top: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .site-name {
+    font-size: 2.2em;
+  }
+  .category-btn {
+    font-size: 28px;
+  }
+  .search-container {
+    font-size: 22px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- اسم الموقع أعلى شيء -->
+<div class="site-name">Abyra</div>
+
+<header>
+  <!-- زر البحث باليسار -->
+  <div class="search-container" onclick="toggleSearch()">🔍</div>
+  <!-- زر القائمة على اليمين -->
+  <div class="category-btn" onclick="toggleCategory()">☰</div>
+
+  <!-- صندوق البحث -->
+  <div class="search-box" id="searchBox">
+    <input type="text" placeholder="ابحث هنا...">
+  </div>
+</header>
+
+<main>
+  <div style="text-align:center; font-size:1.5em; margin-bottom:20px;">الصفحة الرئيسية</div>
+
+  <!-- قائمة التصنيفات -->
+  <div class="category-menu" id="categoryMenu">
+    <div class="close-menu" onclick="toggleCategory()">← خروج</div>
+    <h3>التصنيفات</h3>
+    <a href="#">رومانسي</a>
+    <a href="#">أكشن</a>
+    <a href="#">كوميدي</a>
+    <a href="#">خيال</a>
+    <a href="#">دراما</a>
+    <a href="#">إعادة إحياء</a>
+    <a href="#">زمكاني</a>
+    <a href="#">رعب</a>
+    <a href="#">رياضة</a>
+    <a href="#">حياة مدرسية</a>
+    <a href="#">مغامرة</a>
+    <a href="#">تاريخي</a>
+    <a href="#">خارق للطبيعة</a>
+    <a href="#">سياسي</a>
+    <a href="#">حركة</a>
+    <a href="#">شياطين</a>
+    <a href="#">غموض</a>
+    <a href="#">عائلي</a>
+    <a href="#">تجسس</a>
+    <a href="#">كلاسيكي</a>
+  </div>
+
+  <!-- المانهوات -->
+  <section id="manhwa">
+    <h2>المانهوات</h2>
+    <div id="manhwaList"></div>
+  </section>
+
+  <!-- الكوميكس -->
+  <section id="comic">
+    <h2>الكوميكس</h2>
+  </section>
+
+  <!-- ديسكورد -->
+  <section id="discord">
+    <div class="top-stats">
+      <div>يومي</div>
+      <div>شهري</div>
+      <div>سنوي</div>
+    </div>
+    <a class="discord-btn" href="https://discord.gg/S76J2edAY" target="_blank">انضم للديسكورد</a>
+    <p style="margin-top:10px;">إذا ودكم تدخلون السيرفر وتساهمون بالترجمة.</p>
+  </section>
+</main>
+
+<footer>
+  © 2025 Abyra
+</footer>
+
+<script>
+function toggleSearch() {
+  const box = document.getElementById('searchBox');
+  box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
+
+function toggleCategory() {
+  const menu = document.getElementById('categoryMenu');
+  menu.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>
