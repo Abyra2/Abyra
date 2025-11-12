@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abyra</title>
+<style>
+:root {
+  --dark-bg: #0b0c10;
+  --text-color: #c5c6c7;
+  --accent-color: #1f3b6d; 
+  --light-color: #ffffff;
+  --discord-color: #7f3fff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #111;
+  z-index: 1001;
+}
+
+.site-name {
+  color: var(--accent-color);
+  font-size: 2.5em;
+  font-weight: bold;
+  text-align: center;
+  flex: 1;
+}
+
+.category-btn {
+  font-size: 30px;
+  cursor: pointer;
+  color: var(--light-color);
+  user-select: none;
+}
+
+.search-btn {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-box {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000;
+  color: var(--light-color);
+  padding: 15px;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 0 15px var(--accent-color);
+  z-index: 1002;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  background-color: #111;
+  color: var(--light-color);
+  font-size: 16px;
+}
+
+.category-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  max-width: 400px;
+  background-color: rgba(17,17,17,0.9);
+  color: var(--light-color);
+  display: none;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: -2px 0 10px #000;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.category-menu h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+.category-menu a {
+  color: var(--light-color);
+  text-decoration: none;
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+
+.category-menu a span {
+  font-size: 0.9em;
+  color: #aaa;
+  margin-left: 5px;
+}
+
+.close-menu {
+  cursor: pointer;
+  font-size: 20px;
+  margin-bottom: 20px;
+  user-select: none;
+}
+
+section {
+  padding: 100px 20px 50px 20px;
+  text-align: center;
+}
+
+section h2 {
+  margin-bottom: 20px;
+}
+
+.manhwa-item {
+  margin: 10px 0;
+}
+
+.discord-section {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.discord-button {
+  display: inline-block;
+  background-color: var(--discord-color);
+  color: var(--light-color);
+  padding: 15px 30px;
+  border-radius: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.discord-button:hover {
+  opacity: 0.9;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.stats-bar div {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #222;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #111;
+  color: var(--text-color);
+  margin-top: 50px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <button class="search-btn" onclick="toggleSearch()">🔍</button>
+  <div class="site-name">Abyra</div>
+  <div class="category-btn" onclick="toggleCategory()">☰</div>
+</header>
+
+<div class="search-box" id="searchBox">
+  <input type="text" id="searchInput" placeholder="ابحث هنا..." onkeyup="filterManhwa()">
+</div>
+
+<div class="category-menu" id="categoryMenu">
+  <div class="close-menu" onclick="toggleCategory()">← خروج</div>
+  <h3>التصنيفات</h3>
+  <a href="#" onclick="filterCategory('رومانسي')">رومانسي <span>(12)</span></a>
+  <a href="#" onclick="filterCategory('أكشن')">أكشن <span>(8)</span></a>
+  <a href="#" onclick="filterCategory('كوميدي')">كوميدي <span>(15)</span></a>
+  <a href="#" onclick="filterCategory('خيال')">خيال <span>(10)</span></a>
+  <a href="#" onclick="filterCategory('دراما')">دراما <span>(9)</span></a>
+  <a href="#" onclick="filterCategory('إعادة إحياء')">إعادة إحياء <span>(5)</span></a>
+  <a href="#" onclick="filterCategory('زمكاني')">زمكاني <span>(6)</span></a>
+  <a href="#" onclick="filterCategory('رعب')">رعب <span>(7)</span></a>
+  <a href="#" onclick="filterCategory('رياضة')">رياضة <span>(4)</span></a>
+  <a href="#" onclick="filterCategory('حياة مدرسية')">حياة مدرسية <span>(3)</span></a>
+  <a href="#" onclick="filterCategory('مغامرة')">مغامرة <span>(11)</span></a>
+  <a href="#" onclick="filterCategory('تاريخي')">تاريخي <span>(2)</span></a>
+  <a href="#" onclick="filterCategory('خارق للطبيعة')">خارق للطبيعة <span>(5)</span></a>
+  <a href="#" onclick="filterCategory('سياسي')">سياسي <span>(1)</span></a>
+  <a href="#" onclick="filterCategory('حركة')">حركة <span>(8)</span></a>
+  <a href="#" onclick="filterCategory('شياطين')">شياطين <span>(6)</span></a>
+  <a href="#" onclick="filterCategory('غموض')">غموض <span>(3)</span></a>
+  <a href="#" onclick="filterCategory('عائلي')">عائلي <span>(4)</span></a>
+  <a href="#" onclick="filterCategory('تجسس')">تجسس <span>(2)</span></a>
+  <a href="#" onclick="filterCategory('كلاسيكي')">كلاسيكي <span>(1)</span></a>
+  <a href="#" onclick="filterCategory('مدرسي')">مدرسي <span>(5)</span></a>
+  <a href="#" onclick="filterCategory('رعب مدرسي')">رعب مدرسي <span>(4)</span></a>
+  <a href="#" onclick="filterCategory('خارق')">خارق <span>(3)</span></a>
+  <a href="#" onclick="filterCategory('خيال علمي')">خيال علمي <span>(6)</span></a>
+</div>
+
+<section id="manhwa">
+  <h2>المانهوات</h2>
+  <div id="manhwaList">
+    <!-- عناصر المانهوا جاهزة للإضافة -->
+  </div>
+</section>
+
+<section id="comic">
+  <h2>الكوميكس</h2>
+  <div id="comicList">
+    <!-- عناصر الكوميكس جاهزة للإضافة -->
+  </div>
+</section>
+
+<div class="discord-section">
+  <div class="stats-bar">
+    <div>سنوي</div>
+    <div>شهري</div>
+    <div>يومي</div>
+  </div>
+  <p>انضم لسيرفر Abyra على الديسكورد</p>
+  <a class="discord-button" href="https://discord.gg/S76J2edAY" target="_blank">الدخول إلى الديسكورد</a>
+</div>
+
+<footer>
+  <p>© 2025 Abyra</p>
+</footer>
+
+<script>
+function toggleSearch() {
+  var box = document.getElementById('searchBox');
+  box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
+
+function toggleCategory() {
+  var menu = document.getElementById('categoryMenu');
+  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function filterCategory(category) {
+  const items = document.querySelectorAll('.manhwa-item');
+  items.forEach(item => {
+    if(category === 'all' || item.dataset.category === category) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+  toggleCategory();
+}
+
+function filterManhwa() {
+  const query = document.getElementById('searchInput').value.toLowerCase();
+  const items = document.querySelectorAll('.manhwa-item');
+  items.forEach(item => {
+    if(item.textContent.toLowerCase().includes(query)) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>
