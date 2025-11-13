@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abyra</title>
+<style>
+:root {
+  --dark-bg: #0b0c10;
+  --text-color: #ffffff;
+  --accent-color: #ffffff;
+  --discord-color: #7b3fff;
+}
+html, body {
+  margin: 0; padding: 0; height: 100%; font-family: 'Arial', sans-serif; color: var(--text-color); overflow-x: hidden;
+}
+body {
+  min-height: 100vh; background: url('https://i.imgur.com/WJsPABk.jpg') no-repeat center center fixed; background-size: cover; position: relative;
+}
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: -1; }
+
+header {
+  position: fixed; top: 15px; left: 50%; transform: translateX(-50%); background-color: rgba(17,17,17,0.85); display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 12px 30px; border-radius: 12px; z-index: 2000; box-shadow: 0 0 15px rgba(0,0,0,0.7); flex-wrap: wrap; width: 90%; max-width: 500px;
+}
+header div { cursor: pointer; font-size: 25px; user-select: none; padding: 5px; }
+header img { width: 48px; height: 48px; cursor: pointer; border-radius: 6px; object-fit: contain; }
+.site-name { font-size: 1.8em; font-weight: bold; color: var(--accent-color); text-align: center; flex: 1; }
+
+.search-box { display: none; position: fixed; top: 90px; left: 50%; transform: translateX(-50%); background-color: rgba(0,0,0,0.9); padding: 10px; border-radius: 8px; width: 85%; max-width: 400px; box-shadow: 0 0 10px var(--accent-color); z-index: 1500; }
+.search-box input { width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: none; background-color: #111; color: var(--text-color); direction: rtl; text-align: right; }
+.search-results { margin-top: 10px; max-height: 200px; overflow-y: auto; }
+.search-results div { padding: 8px; border-bottom: 1px solid #333; cursor: pointer; direction: rtl; text-align: right; }
+.search-results div:hover { background-color: #222; }
+
+.category-menu { position: fixed; top: 0; right: -100%; height: 100%; width: 70%; max-width: 400px; background-color: rgba(17,17,17,0.97); flex-direction: column; padding: 20px; box-shadow: -2px 0 15px #000; z-index: 3000; overflow-y: auto; transition: right 0.3s ease; display: flex; }
+.category-menu.open { right: 0; }
+.category-menu h3 { margin-top: 10px; font-size: 1.3em; color: var(--accent-color); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; cursor: pointer; }
+#subCategories { display: none; margin-top: 10px; }
+#subCategories a { display: block; margin: 5px 0; padding-left: 10px; color: #ffffff; transition: color 0.3s; }
+#subCategories a:hover { color: #ffffff; }
+.close-menu { font-size: 20px; margin-bottom: 15px; color: #aaa; cursor: pointer; }
+
+main { text-align: center; padding: 160px 20px 50px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+.home-title { font-size: 2em; color: var(--accent-color); margin-bottom: 20px; }
+
+/* الشرائح المتحركة */
+#featuredManhwa { display: flex; gap: 10px; overflow-x: hidden; padding: 15px 0; }
+#featuredManhwa .slide { flex: 0 0 auto; width: 120px; height: 180px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 10px rgba(255,255,255,0.2); position: relative; }
+#featuredManhwa .slide img { width: 100%; height: 100%; object-fit: cover; }
+#featuredManhwa .slide .slide-title { position: absolute; bottom: 0; left: 0; width: 100%; padding: 3px; background: rgba(0,0,0,0.6); color: #fff; font-size: 0.75em; text-align: center; }
+
+/* قسم المانهوا */
+.manhwa-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 15px; margin-top: 30px; }
+.manhwa-card { background: rgba(0,0,0,0.7); border-radius: 10px; padding: 8px; text-align: center; box-shadow: 0 0 8px rgba(255,255,255,0.1); }
+.manhwa-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
+.manhwa-card h3 { margin: 8px 0; color: #fff; font-size: 1em; }
+.manhwa-card p { margin: 4px 0; color: #ccc; font-size: 0.8em; }
+
+.discord-section p { font-size: 1.1em; margin-bottom: 15px; }
+.discord-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: var(--discord-color); color: white; padding: 12px 28px; border-radius: 10px; text-decoration: none; font-weight: bold; transition: background 0.3s; }
+.discord-btn img { width: 22px; height: 22px; border-radius: 5px; }
+.discord-btn:hover { background-color: #5a2ed1; }
+
+footer { text-align: center; padding: 20px; background-color: rgba(17,17,17,0.85); color: var(--text-color); margin-top: 50px; }
+
+@media (min-width: 768px) {
+  main { padding-top: 180px; }
+  .home-title { font-size: 2.5em; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div onclick="toggleSearch()"><img src="https://i.imgur.com/F8DB2jf.png" alt="بحث"></div>
+  <div class="site-name">Abyra</div>
+  <div onclick="toggleCategory()">☰</div>
+</header>
+
+<div class="search-box" id="searchBox">
+  <input type="text" id="searchInput" placeholder="ابحث عن مانهوا أو كوميكس...">
+  <div class="search-results" id="searchResults"></div>
+</div>
+
+<div class="category-menu" id="categoryMenu">
+  <div class="close-menu" onclick="toggleCategory()">← إغلاق</div>
+  <h3 onclick="toggleSubCategories()">🔥 التصنيفات ▼</h3>
+  <div id="subCategories">
+    <a href="#">أكشن</a><a href="#">رومانسي</a><a href="#">كوميدي</a><a href="#">دراما</a><a href="#">رعب</a>
+  </div>
+</div>
+
+<main>
+  <div class="home-title">الصفحة الرئيسية</div>
+
+  <!-- الشرائح المتحركة -->
+  <div id="featuredManhwa"></div>
+
+  <!-- قسم المانهوا -->
+  <h2 style="margin-top:30px;">📚 المانهوا</h2>
+  <section id="manhwaSection" class="manhwa-grid"></section>
+
+  <!-- قسم الكوميكس -->
+  <h2 style="margin-top:40px;">🖌️ الكوميكس</h2>
+  <section id="comicsSection" class="manhwa-grid"></section>
+
+  <section id="discord" class="discord-section">
+    <h2>💬 الديسكورد</h2>
+    <p>للانضمام للفريق أو للتحدث مع ناس بنفس جوك 👇🏻</p>
+    <a class="discord-btn" href="https://discord.gg/S76J2edAY" target="_blank">
+      <img src="https://i.imgur.com/gFJPk4g.png" alt="Discord Logo"> انضم الآن
+    </a>
+  </section>
+</main>
+
+<footer>© 2025 Abyra</footer>
+
+<script>
+function toggleCategory() { const menu = document.getElementById('categoryMenu'); const searchBox = document.getElementById('searchBox'); menu.classList.toggle('open'); if(menu.classList.contains('open')) searchBox.style.display = 'none'; }
+function toggleSearch() { const box = document.getElementById('searchBox'); const menu = document.getElementById('categoryMenu'); box.style.display = box.style.display === 'block' ? 'none' : 'block'; menu.classList.remove('open'); }
+function toggleSubCategories() { const sub = document.getElementById('subCategories'); sub.style.display = (sub.style.display === 'block') ? 'none' : 'block'; }
+
+const data = ["أكشن","رومانسي","كوميدي","دراما","رعب"];
+document.getElementById('searchInput').addEventListener('input', function(){
+  const value = this.value.trim().toLowerCase();
+  const resultsDiv = document.getElementById('searchResults'); resultsDiv.innerHTML = '';
+  if(value === '') return;
+  const filtered = data.filter(item => item.toLowerCase().includes(value));
+  if(filtered.length > 0){ filtered.forEach(item => { const div = document.createElement('div'); div.textContent = item; div.addEventListener('click',()=>{alert('تم اختيار التصنيف: '+item)}); resultsDiv.appendChild(div); }); }
+  else { resultsDiv.innerHTML = '<div>لا توجد نتائج</div>'; }
+});
+document.addEventListener('click',(e)=>{ const menu = document.getElementById('categoryMenu'); const searchBox = document.getElementById('searchBox'); if(!menu.contains(e.target) && !e.target.closest('header')) menu.classList.remove('open'); if(!searchBox.contains(e.target) && !e.target.closest('header')) searchBox.style.display='none'; });
+
+// بيانات المانهوات
+const manhwas = [
+  {title:"Legend of the Northern Blade", image:"https://i.imgur.com/DJDipuR.jpeg", genre:"أكشن، مغامرة، نظام", chapters:95, description:"مانهوا عن بطل يسعى لاستعادة شرف عائلته بعد سقوطها."},
+  {title:"Omniscient Reader's Viewpoint", image:"https://i.imgur.com/bUpDVmB.jpeg", genre:"خيال، إثارة، مغامرة", chapters:135, description:"رجل يعيش داخل الرواية التي قرأها بالكامل ويحاول تغيير الأحداث."},
+  {title:"Swordmaster's Youngest Son", image:"https://i.imgur.com/QXhEcw6.jpeg", genre:"أكشن، مغامرة، فانتازيا", chapters:80, description:"ابن آخر لعائلة سيف يحاول إثبات قوته."},
+  {title:"Demonic Warrior", image:"https://i.imgur.com/B5z10vh.jpeg", genre:"أكشن، رعب، نظام", chapters:60, description:"محارب شيطاني يقاتل في عالم مظلم مليء بالأعداء."},
+  {title:"Magic Academy's Genius Blinker", image:"https://i.imgur.com/mC5en10.jpeg", genre:"فانتازيا، سحر، مغامرة", chapters:50, description:"طالب عبقري في أكاديمية السحر يواجه تحديات كبيرة."},
+  {title:"Revenge of the Iron-Blooded Sword Hound", image:"https://i.imgur.com/ZN9s29v.jpeg", genre:"أكشن، مغامرة، انتقام", chapters:70, description:"كلب سيف شرس يسعى للانتقام لعائلته المدمرة."},
+  {title:"The Extra's Academy Survival Guide", image:"https://i.imgur.com/FeZFmjO.jpeg", genre:"مدرسي، كوميدي، إثارة", chapters:40, description:"طالب عادي يحاول البقاء في أكاديمية مليئة بالطلاب الأقوياء."}
+];
+
+// عرض المانهوا
+const manhwaSection = document.getElementById('manhwaSection');
+manhwas.forEach(item=>{
+  const card = document.createElement('div');
+  card.className = 'manhwa-card';
+  card.innerHTML = `
+    <img src="${item.image}" alt="${item.title}">
+    <h3>${item.title}</h3>
+    <p>🎭 ${item.genre}</p>
+    <p>📖 ${item.chapters} فصل</p>
+    <p>${item.description}</p>
+  `;
+  manhwaSection.appendChild(card);
+});
+
+// عرض الكوميكس (كمثال نفس البيانات مع تغيير الاسم)
+const comicsSection = document.getElementById('comicsSection');
+manhwas.forEach(item=>{
+  const card = document.createElement('div');
+  card.className = 'manhwa-card';
+  card.innerHTML = `
+    <img src="${item.image}" alt="${item.title}">
+    <h3>${item.title}</h3>
+  `;
+  comicsSection.appendChild(card);
+});
+
+// شرائح المانهوات المتحركة (اختيار 5 عشوائية)
+const featured = document.getElementById('featuredManhwa');
+const shuffled = manhwas.sort(()=>0.5-Math.random()).slice(0,5);
+shuffled.forEach(item=>{
+  const slide = document.createElement('div');
+  slide.className = 'slide';
+  slide.innerHTML = `<img src="${item.image}" alt="${item.title}"><div class="slide-title">${item.title}</div>`;
+  featured.appendChild(slide);
+});
+
+// حركة الشريحة لليمين
+let scrollPos = 0;
+function scrollSlides(){
+  scrollPos += 1;
+  if(scrollPos >= featured.scrollWidth) scrollPos = 0;
+  featured.scrollLeft = scrollPos;
+}
+setInterval(scrollSlides,30);
+</script>
+</body>
+</html>
