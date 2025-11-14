@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abyra</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div onclick="toggleSearch()"><img src="https://i.imgur.com/F8DB2jf.png" alt="بحث"></div>
+  <div class="site-name">Abyra</div>
+  <div onclick="toggleCategory()">☰</div>
+</header>
+
+<div class="search-box" id="searchBox">
+  <input type="text" id="searchInput" placeholder="ابحث عن مانهوا أو كوميكس...">
+  <div class="search-results" id="searchResults"></div>
+</div>
+
+<div class="category-menu" id="categoryMenu">
+  <div class="close-menu" onclick="toggleCategory()">← إغلاق</div>
+  <h3 onclick="toggleSubCategories()">🔥 التصنيفات ▼</h3>
+  <div id="subCategories">
+    <a href="#">أكشن</a>
+    <a href="#">رومانسي</a>
+    <a href="#">خيال</a>
+    <a href="#">مغامرة</a>
+    <a href="#">فانتازيا</a>
+    <a href="#">رعب</a>
+    <a href="#">مدرسي</a>
+    <a href="#">دراما</a>
+    <a href="#">غموض</a>
+    <a href="#">كوميدي</a>
+    <a href="#">نظام</a>
+    <a href="#">زمن قديم</a>
+    <a href="#">سحر</a>
+    <a href="#">خارق للطبيعة</a>
+    <a href="#">رياضي</a>
+    <a href="#">نخبة</a>
+    <a href="#">خيال علمي</a>
+    <a href="#">نهاية العالم</a>
+    <a href="#">انتقام</a>
+    <a href="#">تاريخي</a>
+  </div>
+</div>
+
+<main>
+  <div class="home-title">الصفحة الرئيسية</div>
+  <div id="featuredManhwa"></div>
+
+  <h2 class="section-title">📚 المانهوا</h2>
+  <section id="manhwaSection" class="grid-section"></section>
+
+  <h2 class="section-title">📖 المانجا</h2>
+  <section id="mangaSection" class="grid-section"></section>
+
+  <h2 class="section-title">🎬 الأنمي</h2>
+  <section id="animeSection" class="grid-section"></section>
+
+  <section id="discord" class="discord-section">
+    <h2>💬 الديسكورد</h2>
+    <p>للانضمام للفريق أو للتحدث مع ناس بنفس جوك 👇🏻</p>
+    <a class="discord-btn" href="https://discord.gg/S76J2edAY" target="_blank">
+      <img src="https://i.imgur.com/gFJPk4g.png" alt="Discord Logo"> انضم الآن
+    </a>
+  </section>
+</main>
+
+<footer>© 2025 Abyra</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
